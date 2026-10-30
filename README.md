@@ -60,7 +60,7 @@ This theme bundles 37 wallpapers:
 
 - 3 from Omarchy's stock Nord theme
 - 4 from Omarchy's stock Osaka Jade theme
-- 30 additional Osaka Jade wallpapers
+- 30 additional custom wallpapers
 
 Wallpapers keep their original authorship and licenses; they are included here
 so the theme looks the same out of the box. Check the original sources before
