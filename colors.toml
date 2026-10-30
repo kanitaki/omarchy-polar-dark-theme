@@ -1,0 +1,43 @@
+# Nord Polar Dark
+# A deeper take on Arctic Ice Studio's Nord palette (nord0-nord15).
+# Polar Night surfaces, Snow Storm text, Frost accents, Aurora highlights.
+
+mode = "dark"
+
+accent = "#88c0d0"
+selection = "#434c5e"
+muted = "#4c566a"
+
+# A custom gradient: Frost cyan into Frost blue, like aurora over sea ice.
+hyprland_active_border = "rgba(88c0d0ff) rgba(81a1c1ff) 45deg"
+hyprland_inactive_border = "#4c566a"
+
+# Polar Night, with a custom surface ramp.
+background = "#2e3440"
+dark_background = "#272c36"
+darker_background = "#1f232b"
+lighter_background = "#3b4252"
+
+# Snow Storm
+foreground = "#d8dee9"
+dark_foreground = "#616e88"
+light_foreground = "#e5e9f0"
+bright_foreground = "#eceff4"
+
+# Aurora
+red = "#bf616a"
+yellow = "#ebcb8b"
+orange = "#d08770"
+green = "#a3be8c"
+cyan = "#88c0d0"
+blue = "#81a1c1"
+magenta = "#b48ead"
+brown = "#8c6f5c"
+
+# Aurora, lifted for bright ANSI slots.
+bright_red = "#cf7a82"
+bright_yellow = "#f0d9a0"
+bright_green = "#b7cea1"
+bright_cyan = "#8fbcbb"
+bright_blue = "#8fafd0"
+bright_magenta = "#c6a0bf"

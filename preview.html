@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nord Polar Dark — Omarchy theme preview</title>
+<style>
+  :root {
+    --nord0:#2e3440; --nord1:#3b4252; --nord2:#434c5e; --nord3:#4c566a;
+    --nord4:#d8dee9; --nord5:#e5e9f0; --nord6:#eceff4;
+    --nord7:#8fbcbb; --nord8:#88c0d0; --nord9:#81a1c1; --nord10:#5e81ac;
+    --nord11:#bf616a; --nord12:#d08770; --nord13:#ebcb8b; --nord14:#a3be8c; --nord15:#b48ead;
+
+    --background:#2e3440; --background-dark:#272c36; --background-darker:#1f232b;
+    --background-light:#3b4252;
+    --foreground:#d8dee9; --foreground-light:#e5e9f0; --foreground-bright:#eceff4;
+    --muted:#4c566a; --accent:#88c0d0;
+    --mono:"JetBrainsMono Nerd Font","JetBrainsMono NF",monospace;
+    --sans:"Noto Sans","Liberation Sans",sans-serif;
+  }
+
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; width:1600px; height:900px; overflow:hidden; }
+  body {
+    font-family:var(--sans);
+    color:var(--foreground);
+    background:var(--background-darker);
+    padding:28px 36px 26px;
+    position:relative;
+    display:flex; flex-direction:column;
+  }
+
+  body::before {
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(700px 420px at 10% -10%, rgba(136,192,208,.16), transparent 70%),
+      radial-gradient(760px 460px at 94% 0%, rgba(94,129,172,.20), transparent 72%),
+      radial-gradient(900px 500px at 50% 108%, rgba(180,142,173,.08), transparent 70%);
+    pointer-events:none;
+  }
+  body::after {
+    content:"";
+    position:absolute; inset:0;
+    opacity:.18;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='.16'/></svg>");
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+
+  header {
+    position:relative; z-index:2; flex:none;
+    display:flex; align-items:flex-end; justify-content:space-between;
+    height:58px; margin-bottom:14px;
+  }
+  .brand-kicker {
+    font-family:var(--mono); font-size:10px; letter-spacing:.34em;
+    text-transform:uppercase; color:var(--nord7); margin-bottom:7px;
+  }
+  h1 {
+    margin:0; font-size:30px; line-height:1; letter-spacing:.10em;
+    font-weight:700; color:var(--foreground-bright); text-transform:uppercase;
+  }
+  h1 span { color:var(--accent); }
+  .header-right { display:flex; align-items:center; gap:15px; padding-bottom:2px; }
+  .header-right .meta {
+    text-align:right; font-family:var(--mono); font-size:9.5px; line-height:1.7;
+    letter-spacing:.08em; color:var(--nord4); opacity:.60;
+  }
+  .dots { display:flex; gap:4px; }
+  .dots i { width:10px; height:10px; border-radius:50%; display:block; }
+
+  /* ---------- main ---------- */
+  .main { position:relative; z-index:1; flex:1; display:flex; gap:16px; min-height:0; }
+
+  /* ---------- desktop mock ---------- */
+  .desktop {
+    position:relative; flex:1; min-width:0; border-radius:14px; overflow:hidden;
+    border:1px solid rgba(216,222,233,.16);
+    background:
+      linear-gradient(180deg, rgba(31,35,43,.34), rgba(31,35,43,.64)),
+      url("backgrounds/1-city-view.png") center/cover no-repeat,
+      var(--background-darker);
+    box-shadow:0 26px 60px rgba(0,0,0,.38), inset 0 1px 0 rgba(236,239,244,.08);
+  }
+
+  .bar {
+    height:32px; display:flex; align-items:center; gap:12px;
+    padding:0 13px; font-family:var(--mono); font-size:9.5px; letter-spacing:.02em;
+    color:var(--foreground); background:rgba(46,52,64,.80);
+    border-bottom:1px solid rgba(216,222,233,.10);
+    backdrop-filter:blur(10px);
+  }
+  .logo { width:14px; height:14px; position:relative; flex:none; }
+  .logo::before, .logo::after {
+    content:""; position:absolute; inset:0; border:1.4px solid var(--accent);
+    transform:rotate(45deg); border-radius:3px;
+  }
+  .logo::after { inset:3.2px; border-color:var(--nord7); }
+  .workspaces { display:flex; gap:3px; margin-left:2px; }
+  .ws {
+    width:18px; height:18px; display:grid; place-items:center; border-radius:4px;
+    color:var(--nord4); opacity:.62;
+  }
+  .ws.on { background:var(--accent); color:var(--nord0); font-weight:700; opacity:1; }
+  .ws.urgent { color:var(--nord11); opacity:1; }
+  .bar-title { flex:1; text-align:center; color:var(--nord4); opacity:.70; }
+  .bar-right { display:flex; align-items:center; gap:10px; color:var(--nord4); }
+  .bar-right b { font-weight:600; color:var(--foreground-bright); }
+  .pill { padding:1px 6px; border-radius:20px; background:rgba(136,192,208,.14); color:var(--nord8); }
+  .clock { color:var(--foreground-bright); font-weight:600; }
+
+  .windows { position:absolute; inset:56px 18px 14px; }
+  .window {
+    position:absolute; border-radius:9px; overflow:hidden;
+    border:1px solid transparent;
+    background:
+      linear-gradient(rgba(39,44,54,.95), rgba(39,44,54,.95)) padding-box,
+      linear-gradient(45deg, var(--nord8), var(--nord9)) border-box;
+    box-shadow:0 16px 38px rgba(0,0,0,.45);
+  }
+  .window.inactive {
+    background:
+      linear-gradient(rgba(39,44,54,.95), rgba(39,44,54,.95)) padding-box,
+      linear-gradient(var(--nord3), var(--nord3)) border-box;
+  }
+  .window.term { left:0; top:0; width:556px; height:525px; }
+  .window.editor { right:0; top:0; width:384px; height:525px; }
+
+  .titlebar {
+    height:28px; display:flex; align-items:center; gap:7px;
+    padding:0 10px; background:rgba(59,66,82,.86);
+    border-bottom:1px solid rgba(216,222,233,.08);
+    font-family:var(--mono); font-size:9px; color:var(--nord4);
+  }
+  .titlebar .grip { display:flex; gap:4px; margin-right:2px; }
+  .titlebar .grip i { width:6px; height:6px; border-radius:50%; background:var(--nord3); }
+  .titlebar .grip i:first-child { background:var(--nord11); }
+  .titlebar .grip i:nth-child(2) { background:var(--nord13); }
+  .titlebar .grip i:nth-child(3) { background:var(--nord14); }
+  .titlebar .name { flex:1; text-align:center; }
+  .titlebar .badge { font-size:8px; color:var(--nord0); background:var(--nord8); padding:1px 5px; border-radius:10px; }
+
+  .term-body {
+    padding:14px 15px 12px; font-family:var(--mono); font-size:10.5px; line-height:1.6;
+    height:calc(100% - 28px); display:flex; flex-direction:column;
+  }
+  .fetch { display:flex; gap:18px; }
+  .fetch-art {
+    color:var(--nord8); font-size:9px; line-height:1.08; white-space:pre; flex:none;
+    text-shadow:0 0 10px rgba(136,192,208,.22);
+  }
+  .fetch-info { flex:1; min-width:0; }
+  .fetch-title { font-size:10.5px; font-weight:700; color:var(--nord8); margin-bottom:4px; }
+  .fetch-title span { color:var(--nord3); font-weight:400; }
+  .kv { display:grid; grid-template-columns:58px 1fr; gap:0 8px; }
+  .kv dt { color:var(--nord9); }
+  .kv dd { margin:0; color:var(--foreground); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+  .kv dd em { font-style:normal; color:var(--nord7); }
+  .ansi { display:flex; gap:3px; margin-top:5px; }
+  .ansi i { width:16px; height:10px; border-radius:2px; display:block; }
+  .prompt { margin-top:7px; }
+  .prompt .p1 { color:var(--nord14); } .prompt .p2 { color:var(--nord8); } .prompt .p3 { color:var(--nord4); }
+  .cmd-out { color:var(--nord3); }
+  .cmd-out b { color:var(--nord13); font-weight:500; }
+  .cursor { display:inline-block; width:6px; height:11px; background:var(--nord8); vertical-align:-1px; }
+
+  .editor-body { display:flex; font-family:var(--mono); font-size:9.5px; line-height:1.70; padding-top:7px; }
+  .gutter {
+    width:32px; text-align:right; padding-right:8px; color:var(--nord3);
+    border-right:1px solid rgba(216,222,233,.07); flex:none;
+  }
+  .code { padding-left:9px; white-space:pre; }
+  .c-key { color:var(--nord9); } .c-str { color:var(--nord14); }
+  .c-com { color:var(--nord3); font-style:italic; } .c-punct { color:var(--nord4); }
+
+  /* bottom widgets */
+  .notif {
+    position:absolute; right:14px; bottom:14px; width:276px;
+    background:rgba(46,52,64,.96); border-radius:8px; padding:10px 11px 10px 13px;
+    box-shadow:0 12px 30px rgba(0,0,0,.45);
+    border-left:3px solid var(--accent);
+    display:flex; gap:9px; align-items:flex-start;
+  }
+  .notif .ico {
+    width:24px; height:24px; border-radius:6px; flex:none;
+    background:rgba(136,192,208,.14); color:var(--nord8);
+    display:grid; place-items:center; font-size:12px;
+  }
+  .notif h4 { margin:0 0 1px; font-size:10.5px; color:var(--foreground-bright); }
+  .notif p { margin:0; font-size:9px; line-height:1.45; color:var(--nord4); opacity:.78; }
+  .notif time { font-family:var(--mono); font-size:8px; color:var(--nord3); }
+
+  .music {
+    position:absolute; left:14px; bottom:14px; width:282px;
+    display:flex; align-items:center; gap:10px; padding:8px 11px 8px 8px;
+    background:rgba(31,35,43,.84); border:1px solid rgba(216,222,233,.12);
+    border-radius:8px; backdrop-filter:blur(9px);
+    box-shadow:0 10px 26px rgba(0,0,0,.34);
+  }
+  .cover {
+    width:42px; height:42px; border-radius:5px; flex:none;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(236,239,244,.85), transparent 14%),
+      linear-gradient(145deg, #5e81ac 0%, #88c0d0 46%, #8fbcbb 66%, #3b4252 100%);
+    position:relative; overflow:hidden;
+  }
+  .cover::after {
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(115deg, transparent 0 6px, rgba(31,35,43,.28) 6px 7px);
+  }
+  .music .m-title { font-size:10.5px; font-weight:700; color:var(--foreground-bright); margin-bottom:1px; }
+  .music .m-artist { font-family:var(--mono); font-size:8px; letter-spacing:.06em; color:var(--nord9); margin-bottom:4px; }
+  .music .m-track { width:100%; height:2px; background:var(--nord3); border-radius:3px; overflow:hidden; }
+  .music .m-track i { display:block; height:100%; width:38%; background:linear-gradient(90deg,var(--nord8),var(--nord7)); }
+  .music .m-time { display:flex; justify-content:space-between; font-family:var(--mono); font-size:7px; color:var(--nord3); margin-top:2px; }
+
+  .osd {
+    position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:8px; padding:5px 11px;
+    font-family:var(--mono); font-size:9px; color:var(--foreground);
+    background:rgba(31,35,43,.82); border:1px solid rgba(136,192,208,.24);
+    border-radius:20px; backdrop-filter:blur(8px);
+  }
+  .osd .track { width:76px; height:3px; border-radius:4px; background:var(--nord3); overflow:hidden; }
+  .osd .track i { display:block; height:100%; width:62%; background:var(--accent); }
+
+  /* ---------- palette sidebar ---------- */
+  .palette {
+    position:relative; z-index:1; width:500px; flex:none;
+    display:flex; flex-direction:column; gap:10px; min-height:0;
+  }
+  .family {
+    flex:1; min-height:0;
+    background:rgba(46,52,64,.58);
+    border:1px solid rgba(216,222,233,.12);
+    border-radius:10px; padding:11px 13px 9px;
+    display:flex; flex-direction:column;
+  }
+  .family h2 {
+    margin:0 0 7px; font-family:var(--mono); font-size:9px;
+    letter-spacing:.22em; text-transform:uppercase; font-weight:600;
+    color:var(--nord4); display:flex; justify-content:space-between;
+  }
+  .family h2 span { color:var(--nord3); letter-spacing:.08em; font-weight:400; }
+
+  .swatches { flex:1; min-height:0; display:grid; gap:6px; grid-template-columns:repeat(5,1fr); }
+  .swatches.four { grid-template-columns:repeat(4,1fr); }
+  .swatch {
+    border-radius:6px; padding:7px 8px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:0; overflow:hidden;
+  }
+  .sw-top {
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:7.5px; letter-spacing:.04em; opacity:.68;
+  }
+  .sw-name { font-family:var(--mono); font-size:8.5px; font-weight:600; letter-spacing:.02em; }
+  .family.polar .swatch { color:var(--foreground-bright); }
+  .family.snow .swatch,
+  .family.frost .swatch,
+  .family.aurora .swatch { color:var(--nord0); }
+
+  .family-note {
+    margin-top:6px; padding-top:5px;
+    font-family:var(--mono); font-size:7.5px; line-height:1.3;
+    letter-spacing:.04em; color:var(--nord3);
+    border-top:1px solid rgba(216,222,233,.07);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+
+  footer {
+    position:relative; z-index:1; flex:none; margin-top:12px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono); font-size:8.5px; letter-spacing:.12em;
+    color:var(--nord3); text-transform:uppercase;
+  }
+  footer b { color:var(--nord4); font-weight:500; letter-spacing:.08em; }
+  .swatchline { display:flex; gap:3px; }
+  .swatchline i { width:18px; height:4px; border-radius:2px; display:block; opacity:.8; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand-kicker">Omarchy theme · preview 01</div>
+    <h1>Nord <span>Polar</span> Dark</h1>
+  </div>
+  <div class="header-right">
+    <div class="meta">
+      Polar Night surfaces<br>
+      Frost accent · Snow Storm text
+    </div>
+    <div class="dots">
+      <i style="background:#2e3440"></i><i style="background:#3b4252"></i>
+      <i style="background:#434c5e"></i><i style="background:#88c0d0"></i>
+      <i style="background:#81a1c1"></i><i style="background:#8fbcbb"></i>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <section class="desktop">
+    <div class="bar">
+      <div class="logo"></div>
+      <div class="workspaces">
+        <div class="ws">1</div><div class="ws on">2</div><div class="ws">3</div>
+        <div class="ws urgent">4</div><div class="ws">5</div>
+      </div>
+      <div class="bar-title">~/dev/omarchy-themes/nord-polar-dark</div>
+      <div class="bar-right">
+        <span class="pill">CPU 12%</span>
+        <span>RAM <b>4.8G</b></span>
+        <span>VOL 62%</span>
+        <span>BAT 87%</span>
+        <span class="clock">Thu 09:41</span>
+      </div>
+    </div>
+
+    <div class="windows">
+      <div class="window term">
+        <div class="titlebar">
+          <div class="grip"><i></i><i></i><i></i></div>
+          <div class="name">alacritty — zsh</div>
+          <div class="badge">tiling</div>
+        </div>
+        <div class="term-body">
+          <div class="fetch">
+            <div class="fetch-art">        /\        <span style="color:#5e81ac">/  \</span>
+       /  \      <span style="color:#5e81ac">/    \</span>
+      /    \    <span style="color:#81a1c1">/  /\  \</span>
+     /  /\  \  <span style="color:#81a1c1">/  /  \  \</span>
+    /  /  \  \<span style="color:#88c0d0">/  /    \  \</span>
+   /__/____\__<span style="color:#88c0d0">\_/______\__\</span>
+      <span style="color:#8fbcbb">·  n o r d  ·  p o l a r  ·</span></div>
+            <div class="fetch-info">
+              <div class="fetch-title">dwhiter@polar <span>────────────</span></div>
+              <dl class="kv">
+                <dt>OS</dt><dd>Omarchy · Arch Linux</dd>
+                <dt>Kernel</dt><dd>6.12.4-arch1</dd>
+                <dt>WM</dt><dd><em>Hyprland</em> (Wayland)</dd>
+                <dt>Shell</dt><dd>zsh 5.9 · starship</dd>
+                <dt>Theme</dt><dd><em>Nord Polar Dark</em></dd>
+                <dt>Terminal</dt><dd>alacritty · JetBrainsMono NF</dd>
+                <dt>Icons</dt><dd>Yaru-blue</dd>
+              </dl>
+              <div class="ansi">
+                <i style="background:#2e3440"></i><i style="background:#bf616a"></i>
+                <i style="background:#a3be8c"></i><i style="background:#ebcb8b"></i>
+                <i style="background:#81a1c1"></i><i style="background:#b48ead"></i>
+                <i style="background:#88c0d0"></i><i style="background:#d8dee9"></i>
+                <i style="background:#4c566a"></i><i style="background:#cf7a82"></i>
+                <i style="background:#b7cea1"></i><i style="background:#f0d9a0"></i>
+                <i style="background:#8fafd0"></i><i style="background:#c6a0bf"></i>
+                <i style="background:#8fbcbb"></i><i style="background:#eceff4"></i>
+              </div>
+            </div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="prompt"><span class="p1">~/dev</span> <span class="p2">❯</span> <span class="p3">git status --short</span></div>
+          <div class="cmd-out"><b>M</b> colors.toml&nbsp;&nbsp;<b>??</b> preview.html&nbsp;&nbsp;<b>??</b> backgrounds/</div>
+          <div class="prompt"><span class="p1">~/dev</span> <span class="p2">❯</span> <span class="p3">omarchy theme current</span></div>
+          <div class="cmd-out"><span style="color:#88c0d0">Nord Polar Dark</span> <span style="color:#4c566a">·</span> <span style="color:#a3be8c">staged</span></div>
+          <div class="prompt"><span class="p1">~/dev</span> <span class="p2">❯</span> <span class="cursor"></span></div>
+        </div>
+      </div>
+
+      <div class="window editor inactive">
+        <div class="titlebar">
+          <div class="grip"><i></i><i></i><i></i></div>
+          <div class="name">nvim — colors.toml</div>
+          <div class="badge" style="background:#434c5e;color:#d8dee9">toml</div>
+        </div>
+        <div class="editor-body">
+          <div class="gutter">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25</div>
+          <div class="code"><span class="c-com"># Nord Polar Dark</span>
+<span class="c-key">mode</span> <span class="c-punct">=</span> <span class="c-str">"dark"</span>
+
+<span class="c-key">accent</span>    <span class="c-punct">=</span> <span class="c-str">"#88c0d0"</span>
+<span class="c-key">selection</span> <span class="c-punct">=</span> <span class="c-str">"#434c5e"</span>
+<span class="c-key">muted</span>     <span class="c-punct">=</span> <span class="c-str">"#4c566a"</span>
+
+<span class="c-key">background</span>        <span class="c-punct">=</span> <span class="c-str">"#2e3440"</span>
+<span class="c-key">dark_background</span>   <span class="c-punct">=</span> <span class="c-str">"#272c36"</span>
+<span class="c-key">darker_background</span> <span class="c-punct">=</span> <span class="c-str">"#1f232b"</span>
+<span class="c-key">lighter_background</span><span class="c-punct">=</span> <span class="c-str">"#3b4252"</span>
+
+<span class="c-key">foreground</span>       <span class="c-punct">=</span> <span class="c-str">"#d8dee9"</span>
+<span class="c-key">light_foreground</span> <span class="c-punct">=</span> <span class="c-str">"#e5e9f0"</span>
+<span class="c-key">bright_foreground</span><span class="c-punct">=</span> <span class="c-str">"#eceff4"</span>
+
+<span class="c-key">red</span>     <span class="c-punct">=</span> <span class="c-str">"#bf616a"</span>   <span class="c-com"># nord11</span>
+<span class="c-key">orange</span>  <span class="c-punct">=</span> <span class="c-str">"#d08770"</span>   <span class="c-com"># nord12</span>
+<span class="c-key">yellow</span>  <span class="c-punct">=</span> <span class="c-str">"#ebcb8b"</span>   <span class="c-com"># nord13</span>
+<span class="c-key">green</span>   <span class="c-punct">=</span> <span class="c-str">"#a3be8c"</span>   <span class="c-com"># nord14</span>
+<span class="c-key">cyan</span>    <span class="c-punct">=</span> <span class="c-str">"#88c0d0"</span>   <span class="c-com"># nord8</span>
+<span class="c-key">blue</span>    <span class="c-punct">=</span> <span class="c-str">"#81a1c1"</span>   <span class="c-com"># nord9</span>
+<span class="c-key">magenta</span> <span class="c-punct">=</span> <span class="c-str">"#b48ead"</span>   <span class="c-com"># nord15</span></div>
+        </div>
+      </div>
+
+      <div class="music">
+        <div class="cover"></div>
+        <div style="flex:1;min-width:0">
+          <div class="m-title">Polar Night</div>
+          <div class="m-artist">AURORA · 02:41</div>
+          <div class="m-track"><i></i></div>
+          <div class="m-time"><span>0:58</span><span>-2:41</span></div>
+        </div>
+      </div>
+
+      <div class="notif">
+        <div class="ico">❄</div>
+        <div>
+          <h4>Nord Polar Dark</h4>
+          <p>Theme staged with Polar Night surfaces and a Frost accent.</p>
+          <time>just now</time>
+        </div>
+      </div>
+
+      <div class="osd">
+        <span style="color:#88c0d0">VOL</span>
+        <span class="track"><i></i></span>
+        <span>62%</span>
+      </div>
+    </div>
+  </section>
+
+  <aside class="palette">
+    <div class="family polar">
+      <h2>Polar Night <span>nord0–3</span></h2>
+      <div class="swatches four">
+        <div class="swatch" style="background:#2e3440"><div class="sw-top"><span>00</span><span>#2E3440</span></div><div class="sw-name">Deepest</div></div>
+        <div class="swatch" style="background:#3b4252"><div class="sw-top"><span>01</span><span>#3B4252</span></div><div class="sw-name">Surface</div></div>
+        <div class="swatch" style="background:#434c5e"><div class="sw-top"><span>02</span><span>#434C5E</span></div><div class="sw-name">Selection</div></div>
+        <div class="swatch" style="background:#4c566a"><div class="sw-top"><span>03</span><span>#4C566A</span></div><div class="sw-name">Muted</div></div>
+      </div>
+      <div class="family-note">bg 2E3440 · dark 272C36 · darker 1F232B</div>
+    </div>
+
+    <div class="family snow">
+      <h2>Snow Storm <span>nord4–6</span></h2>
+      <div class="swatches four">
+        <div class="swatch" style="background:#d8dee9"><div class="sw-top"><span>04</span><span>#D8DEE9</span></div><div class="sw-name">Foreground</div></div>
+        <div class="swatch" style="background:#e5e9f0"><div class="sw-top"><span>05</span><span>#E5E9F0</span></div><div class="sw-name">Light text</div></div>
+        <div class="swatch" style="background:#eceff4"><div class="sw-top"><span>06</span><span>#ECEFF4</span></div><div class="sw-name">Bright text</div></div>
+        <div class="swatch" style="background:#616e88;color:#eceff4"><div class="sw-top"><span>—</span><span>#616E88</span></div><div class="sw-name">Dim text</div></div>
+      </div>
+      <div class="family-note">body D8DEE9 · bright ECEFF4 · dim 616E88</div>
+    </div>
+
+    <div class="family frost">
+      <h2>Frost <span>nord7–10</span></h2>
+      <div class="swatches four">
+        <div class="swatch" style="background:#8fbcbb"><div class="sw-top"><span>07</span><span>#8FBCBB</span></div><div class="sw-name">Ice</div></div>
+        <div class="swatch" style="background:#88c0d0"><div class="sw-top"><span>08</span><span>#88C0D0</span></div><div class="sw-name">Accent</div></div>
+        <div class="swatch" style="background:#81a1c1"><div class="sw-top"><span>09</span><span>#81A1C1</span></div><div class="sw-name">Blue</div></div>
+        <div class="swatch" style="background:#5e81ac;color:#eceff4"><div class="sw-top"><span>10</span><span>#5E81AC</span></div><div class="sw-name">Deep blue</div></div>
+      </div>
+      <div class="family-note">accent 88C0D0 · border 88C0D0 → 81A1C1</div>
+    </div>
+
+    <div class="family aurora">
+      <h2>Aurora <span>nord11–15</span></h2>
+      <div class="swatches">
+        <div class="swatch" style="background:#bf616a"><div class="sw-top"><span>11</span><span>#BF616A</span></div><div class="sw-name">Red</div></div>
+        <div class="swatch" style="background:#d08770"><div class="sw-top"><span>12</span><span>#D08770</span></div><div class="sw-name">Orange</div></div>
+        <div class="swatch" style="background:#ebcb8b"><div class="sw-top"><span>13</span><span>#EBCB8B</span></div><div class="sw-name">Yellow</div></div>
+        <div class="swatch" style="background:#a3be8c"><div class="sw-top"><span>14</span><span>#A3BE8C</span></div><div class="sw-name">Green</div></div>
+        <div class="swatch" style="background:#b48ead"><div class="sw-top"><span>15</span><span>#B48EAD</span></div><div class="sw-name">Magenta</div></div>
+      </div>
+      <div class="family-note">ANSI · diagnostics · syntax highlights</div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div><b>accent</b> #88C0D0 &nbsp;·&nbsp; <b>background</b> #2E3440 &nbsp;·&nbsp; <b>foreground</b> #D8DEE9 &nbsp;·&nbsp; <b>border</b> frost gradient</div>
+  <div class="swatchline">
+    <i style="background:#2e3440"></i><i style="background:#3b4252"></i><i style="background:#434c5e"></i>
+    <i style="background:#4c566a"></i><i style="background:#88c0d0"></i><i style="background:#8fbcbb"></i>
+    <i style="background:#81a1c1"></i><i style="background:#5e81ac"></i><i style="background:#a3be8c"></i>
+    <i style="background:#ebcb8b"></i><i style="background:#d08770"></i><i style="background:#bf616a"></i>
+    <i style="background:#b48ead"></i><i style="background:#d8dee9"></i><i style="background:#eceff4"></i>
+  </div>
+</footer>
+
+</body>
+</html>
